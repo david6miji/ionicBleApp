@@ -11,6 +11,18 @@ angular.module('starter', ['ionic', 'ngCordova','starter.controllers'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+	
+	// just checking if the BLE plugin works
+    ble.isEnabled(
+        function() {
+            console.log("Bluetooth is enabled");
+        },
+        function() {
+            console.log("Bluetooth is *not* enabled");
+            alert("Bluetooth is *not* enabled");
+        }
+    );
+	
   });
 })
 
