@@ -13,6 +13,8 @@ angular.module('starter.controllers', [])
 
 	];
 	
+	$scope.scanning = false;
+	
 	$ionicPlatform.ready(function() {
 		console.log( 'CALL $ionicPlatform.ready()');
 		if( !window.ble ){
@@ -30,6 +32,8 @@ angular.module('starter.controllers', [])
 				});
 		
 	});	
+	
+	// 
 
 })
 
