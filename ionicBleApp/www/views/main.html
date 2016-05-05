@@ -1,94 +1,40 @@
 <ion-view> 
 
-<ion-header-bar class="bar bar-subheader bar-dark">
+<ion-content class="has-footer">
+
+<div class="padding">
+	
+	<div class="col">
+	
+		<!--div class="item-image">	<img src ="img/falinux_logo.png">	</div-->
+		<div class="item-image">   <br>								</div>
 		
-	<h1 class="title"> 
-		<ion-spinner ng-if="scanning" icon="spiral" class="spinner-energized"></ion-spinner>
-		 &nbsp; BLE 디바이스 목록 2
-	</h1>
-	<button class="button  button-energized" 
-	        ng-style="{color:'black'}" >
-			<b>Scan</b>
-	</button>
-	
-</ion-header-bar>
-
-
-<ion-content class="has-header has-footer">
-	<div class="padding">
-       <div class="list">
-	
-          <label class="item item-input"> HELLO  1  </label>
-          <label class="item item-input"> HELLO  2  </label>
-          <label class="item item-input"> HELLO  3  </label>
-          <label class="item item-input"> HELLO  4  </label>
-          <label class="item item-input"> HELLO  5  </label>
-          <label class="item item-input"> HELLO  6  </label>
-          <label class="item item-input"> HELLO  7  </label>
-          <label class="item item-input"> HELLO  8  </label>
-          <label class="item item-input"> HELLO  9  </label>
-          <label class="item item-input"> HELLO 10  </label>
-          <label class="item item-input"> HELLO 11  </label>
-          <label class="item item-input"> HELLO 12  </label>
-          <label class="item item-input"> HELLO 13  </label>
-          <label class="item item-input"> EMPTY ...    </label>
+		<div ng-if="!bleEnabled" class="item item-energized item-icon-left">
+			<font color="blue" size=5>
+			<i class="icon ion-bluetooth"></i>
+			</font>
+			<font color="black" size=5>
+			<b>블루투스를 켜 주세요</b>
+			</font>
 		</div>
-		</div>
-    </div>		
-</ion-content>
-</ion-view>
-
-
-
-
-<!--	
-
-	<progress value=4 max=10 class="item item-input button-clear" ></progress>
-
-	
-<div class="row">
-  <div class="col col-50">.col.col-50</div>
-  <div class="col">.col</div>
-  <div class="col">.col</div>
+		
+		<div class="item-image"><br>						</div>
+		<div class="item-image"><img src="img/BLE.png">	</div>
+		<div class="item-image"><br>						</div>
+		
+		<button class="button button-large button-full button-positive item-icon-left"
+		   ng-click = "enterDeviceList()"	>
+			시 작
+		</button>
+		
+	</div>
+		
 </div>
-	<!--div class="list">
-			<h1 class="title"> BLE 디바이스 목록 </h1>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-			<a class="item" href="#"> item.title </a>
-	</div>
-	
-	<ion-pane>
-		<progress value=4 max=10></progress>
-	</ion-pane>
-	
 
-	<div class="list">
-		<a class="item" href="#"> item.title </a>
-	</div>
+</ion-content>
+
+<ion-footer-bar class="bar bar-footer bar-royal">
+	<h1 class="title"> www.falinux.com </h1>
+</ion-footer-bar>
 	
-	<div>
-		<progress value=4 max=10></progress>
-	</div>
-	<button class="button button-large button-positive">
-	Large Button
-	</button>
-	<div class="list">
-	
-		<a ng-repeat="item in items" class="item" href="{{item.url}}">
-			{{item.title}}
-		</a>
-	</div>
--->	
-	
-  
+</ion-view>

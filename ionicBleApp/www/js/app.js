@@ -1,6 +1,6 @@
-angular.module('starter', ['ionic', 'ngCordova','starter.controllers'])
+angular.module('starter', ['ionic', 'ngCordova','starter.services','starter.controllers'])
 
-.run(function($ionicPlatform,$ionicHistory, $ionicPopup) {
+.run(function($rootScope, $ionicPlatform,$ionicHistory, $ionicPopup,BLE,$state) {
 	
   $ionicPlatform.ready(function() {
 	  
@@ -13,24 +13,10 @@ angular.module('starter', ['ionic', 'ngCordova','starter.controllers'])
     }
 	
 	if( window.powerManagement ){
-		console.log( "OK window.powerManagement" );
 		window.powerManagement.acquire(function() {
-//			console.log('Wakelock acquired');
 		}, function() {
-//			console.log('Failed to acquire wakelock');
 		});			
 	}
-	
-	// just checking if the BLE plugin works
-    ble.isEnabled(
-        function() {
-            console.log("Bluetooth is enabled");
-        },
-        function() {
-            console.log("Bluetooth is *not* enabled");
-            alert("Bluetooth is *not* enabled");
-        }
-    );
 	
   });
   
@@ -48,9 +34,7 @@ angular.module('starter', ['ionic', 'ngCordova','starter.controllers'])
 									onTap: function(event) {
 											if( window.powerManagement ){
 												window.powerManagement.release(function() {
-													// console.log('Wakelock released');
 												}, function() {
-													// console.log('Failed to release wakelock');
 												});			
 											}										
 											
@@ -64,7 +48,11 @@ angular.module('starter', ['ionic', 'ngCordova','starter.controllers'])
 					
 		} else {
 			console.log( 'no Main View Exit' );
-			$ionicHistory.goBack();
+			if( $ionicHistory.backView() ) {
+				$ionicHistory.goBack();
+			} else {
+				$state.go( "main" );
+			}
 		}
 			
 	}, 101); 
@@ -74,8 +62,10 @@ angular.module('starter', ['ionic', 'ngCordova','starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
 	
 	$stateProvider
-	.state('main', 			{ url: '/', 		templateUrl: 'views/main.html'    	, 		
-	                                            controller: 'mainCtrl'			})
+	.state('main', 			{ url: '/', 			templateUrl: 'views/main.html'    	, 		
+													controller: 'mainCtrl'					})
+	.state('device list', 	{ url: '/device_list', 	templateUrl: 'views/device_list.html',
+													controller: 'deviceListCtrl'			})
   
 	$urlRouterProvider.otherwise('/');
   

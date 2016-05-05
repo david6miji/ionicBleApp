@@ -1,0 +1,106 @@
+<ion-view> 
+
+<ion-header-bar class="bar bar-subheader bar-dark">
+		
+	<h1 class="title"> 
+		 BLE 디바이스 목록
+	</h1>
+	<div class="button button-clear pull-right">
+		<ion-spinner ng-if="scanning" icon="spiral" class="spinner-energized"></ion-spinner>
+	</div>
+	
+</ion-header-bar>
+
+<ion-content class="has-header has-footer">
+	<div class="padding">
+       <div class="lists">
+		<div ng-repeat="device in devices" class="card">
+			<div class="row item-divider">
+				<div class="col-20"> Name :</div>
+				<div class="col-80" >{{device.name}}</div>
+			</div>	
+			<div class="row">
+				<div class="col-67">
+					<div class="row">
+						<div class="col-20">ID :</div>
+						<div class="col-80" >{{device.id}}</div>
+					</div>	
+				</div>
+				<div class="col-33">
+					<div class="row">
+						<div class="col-50">RSSI :</div>
+						<div class="col-50">{{device.rssi}}</div>
+					</div>	
+				</div>
+			</div>	
+		</div>		
+		</div>	
+	</div>
+</ion-content>
+
+<ion-footer-bar class="bar bar-footer bar-royal">
+	<h1 class="title"> 
+		www.falinux.com
+	</h1>
+	<button ng-if="!scanning" class="button button-dark" ng-click="bleScan()" >
+			<b>SCAN</b>
+	</button>
+</ion-footer-bar>
+
+	
+</ion-view>
+
+
+
+
+<!--	
+
+	<progress value=4 max=10 class="item item-input button-clear" ></progress>
+
+	
+<div class="row">
+  <div class="col col-50">.col.col-50</div>
+  <div class="col">.col</div>
+  <div class="col">.col</div>
+</div>
+	<!--div class="list">
+			<h1 class="title"> BLE 디바이스 목록 </h1>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+			<a class="item" href="#"> item.title </a>
+	</div>
+	
+	<ion-pane>
+		<progress value=4 max=10></progress>
+	</ion-pane>
+	
+
+	<div class="list">
+		<a class="item" href="#"> item.title </a>
+	</div>
+	
+	<div>
+		<progress value=4 max=10></progress>
+	</div>
+	<button class="button button-large button-positive">
+	Large Button
+	</button>
+	<div class="list">
+	
+		<a ng-repeat="item in items" class="item" href="{{item.url}}">
+			{{item.title}}
+		</a>
+	</div>
+-->	
+	
+  
