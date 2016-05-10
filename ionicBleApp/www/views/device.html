@@ -3,18 +3,32 @@
 <ion-header-bar class="bar bar-subheader bar-dark">
 		
 	<h1 class="title"> 
-		 BLE 디바이스 목록
+		 BLE 디바이스
 	</h1>
-	<div class="button button-clear pull-right">
-		<ion-spinner ng-if="scanning" icon="spiral" class="spinner-energized"></ion-spinner>
-	</div>
 	
 </ion-header-bar>
 
 <ion-content class="has-header has-footer">
 	<div class="padding">
        <div class="lists">
-		<div ng-repeat="(id, device) in devices" class="card" ng-click="select(device)">
+			<div class="card">&nbsp;&nbsp;ID : &nbsp;{{device.id}} </div>
+			<div class="card">&nbsp;&nbsp;NAME : {{device.name}} </div>
+			<div class="card">&nbsp;&nbsp;RSSI : {{device.rssi}} </div>
+			
+			<div ng-if="device.isConnected" class="card">&nbsp;&nbsp;connect : connected </div>
+			<div ng-if="!device.isConnected" class="card">&nbsp;&nbsp;connect : no </div>
+			
+			<button ng-if="!device.isConnected" class="button button-large button-full button-positive item-icon-left"
+					ng-click = "connectDevice()"	>
+					연결
+			</button>
+			<button ng-if="device.isConnected" class="button button-large button-full button-positive item-icon-left"
+					ng-click = "disconnectDevice()"	>
+					연결끊기
+			</button>
+			
+<!--	   
+		<div ng-repeat="device in devices" class="card" ng-click="connect(device.id)">
 			<div class="row item-divider">
 				<div class="col-20"> Name :</div>
 				<div class="col-80" >{{device.name}}</div>
@@ -33,8 +47,8 @@
 					</div>	
 				</div>
 			</div>	
-			
 		</div>		
+-->		
 		</div>	
 	</div>
 </ion-content>
@@ -43,9 +57,6 @@
 	<h1 class="title"> 
 		www.falinux.com
 	</h1>
-	<button ng-if="!scanning" class="button button-dark" ng-click="bleScan()" >
-			<b>SCAN</b>
-	</button>
 </ion-footer-bar>
 
 	

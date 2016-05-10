@@ -22,7 +22,8 @@
 		<div class="item-image"><img src="img/BLE.png">	</div>
 		<div class="item-image"><br>						</div>
 		
-		<button class="button button-large button-full button-positive item-icon-left"
+		<button ng-if="bleEnabled" 
+		   class="button button-large button-full button-positive item-icon-left"
 		   ng-click = "enterDeviceList()"	>
 			시 작
 		</button>

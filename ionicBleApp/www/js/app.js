@@ -1,6 +1,13 @@
-angular.module('starter', ['ionic', 'ngCordova','starter.services','starter.controllers'])
+angular.module('starter', 
+[
+	'ionic', 
+	'ngCordova',
+	'starter.services',
+	'starter.controllers',
+	'ngCordovaBluetoothLE',
+])
 
-.run(function($rootScope, $ionicPlatform,$ionicHistory, $ionicPopup,BLE,$state) {
+.run(function($rootScope, $ionicPlatform,$ionicHistory, $ionicPopup,$state) {
 	
   $ionicPlatform.ready(function() {
 	  
@@ -64,12 +71,16 @@ angular.module('starter', ['ionic', 'ngCordova','starter.services','starter.cont
 	$stateProvider
 	.state('main', 			{ url: '/', 			templateUrl: 'views/main.html'    	, 		
 													controller: 'mainCtrl'					})
+													
 	.state('device list', 	{ url: '/device_list', 	templateUrl: 'views/device_list.html',
 													controller: 'deviceListCtrl'			})
+													
+	.state('device', 		{ url: '/device', 		templateUrl: 'views/device.html',
+													params:      { device : null },
+													controller: 'deviceCtrl'				})
   
 	$urlRouterProvider.otherwise('/');
   
 })
 
 ;
-	

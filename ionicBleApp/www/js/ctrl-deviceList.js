@@ -1,46 +1,78 @@
 angular.module('starter.controllers')
 
-.controller('deviceListCtrl', function($scope,$timeout ) {
+.controller('deviceListCtrl', function($scope,$timeout, $state,$cordovaBluetoothLE ) {
 	
 	$scope.scanning = false;
-	$scope.devices 	= [];
-	$scope.keys 	= {};
-	var bleScanTimer;
+	$scope.devices 	= {};
 	
 	$scope.bleScan = function(){
 		
 		console.log( 'scan start');
-		$scope.scanning = true;
-		$scope.devices = [];
 		
-		bleScanTimer = $timeout(function() {
-			ble.stopScan();
-			$scope.scanning = false;
-			console.log('scan stop')
-		}, 10000);
+		var params = {
+			services:[],
+			allowDuplicates: false,
+			scanTimeout: 15000,
+		};
+	
+		$scope.devices = {};
 		
-		ble.startScan([],  /* scan for all services */
-			function(peripheral){
-				console.log( 'peripheral = ' + JSON.stringify(peripheral, null, 4));
-                $scope.devices.push(peripheral);
-				$scope.keys[peripheral.id] = peripheral;
-				$scope.$apply();
-            },
-            function(error){
-				console.error( error );
-            }
+		$cordovaBluetoothLE.startScan(params).then(
+		
+			function(obj) {
+				console.log("Start Scan Auto Stop : " + JSON.stringify(obj));
+				if( obj.status === "scanStopped" ){
+					$scope.scanning = false;
+				}
+				
+			}, function(obj) {
+				
+				console.log("Start Scan Error : " + JSON.stringify(obj));
+				
+			}, function(obj) {
+				
+				console.log("Start Scan Success : " + JSON.stringify(obj));
+
+				if( obj.status === "scanStarted" ){
+					$scope.scanning = true;
+				}
+				
+				if( obj.status === "scanResult" ){
+						$scope.devices[obj.address] = {};
+						$scope.devices[obj.address].id 		= obj.address;
+						$scope.devices[obj.address].name 	= obj.name;
+						$scope.devices[obj.address].rssi 	= obj.rssi;
+				}
+			}
 		);
+		
 	}
 
+	$scope.bleScanStop = function(){
+		console.log('scan stop')
+		$cordovaBluetoothLE.stopScan().then(
+			function(obj) {
+				console.log("Stop Scan Success : " + JSON.stringify(obj));
+				$scope.scanning = false;
+			}, function(obj) {
+				console.log("Stop Scan Error : " + JSON.stringify(obj));
+				$scope.scanning = false;
+			}
+		);
+	
+	}
+	
 	$scope.$on('$destroy', function() {
 		console.log( 'EVENT destroy()');
+		$scope.bleScanStop();
 		
-		if ( angular.isDefined(bleScanTimer) ) {
-			console.log('timer stop3');
-			$timeout.cancel( bleScanTimer );
-		}
-		ble.stopScan();
 	});
+	
+	$scope.select = function( device ){
+		$scope.bleScanStop();
+//		$state.go( 'device', { id : device.id, name : device.name } );
+//		$state.go( 'device', { device : device } );
+	}
 	
 })
 
